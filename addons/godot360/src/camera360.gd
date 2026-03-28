@@ -61,6 +61,7 @@ var mat := ShaderMaterial.new()
 
 
 func _ready() -> void:
+	var original_cull_mask := cull_mask
 	render_layer = int(pow(2, render_layer - 1))
 	cull_mask = render_layer
 
@@ -91,7 +92,7 @@ func _ready() -> void:
 		camera.fov = camera_fov
 		camera.near = clip_near
 		camera.far = clip_far
-		camera.cull_mask -= render_layer
+		camera.cull_mask = original_cull_mask & ~render_layer
 		camera.environment = camera_environment
 		cameras.append(camera)
 
